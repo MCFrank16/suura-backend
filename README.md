@@ -19,7 +19,22 @@ brew install mongodb-community@4.2
 ```
 - #### run mongo server
 ```
-mongod
+mongod --bind_ip_all --dbpath /usr/local/var/mongodb
+```
+
+## APPLICATION SET UP
+- ### install dependencies
+```
+npm install
+```
+- ### start the application
+```
+npm start // production
+npm run dev // development
+```
+- ### testing
+```
+npm test
 ```
 
 
