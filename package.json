@@ -1,0 +1,48 @@
+{
+  "name": "suura-backend",
+  "version": "1.0.0",
+  "description": "this is the backend of the project entitled as SUURA",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "NODE_ENV=test nyc ./node_modules/.bin/mocha ./tests/* --exit",
+    "coveralls": "nyc report --reporter=text-lcov | coveralls",
+    "lint": "eslint ./src/**.js",
+    "build": "babel src/**.js --out-dir dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MCFrank16/suura-backend.git"
+  },
+  "author": "Suura Contributors",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MCFrank16/suura-backend/issues"
+  },
+  "homepage": "https://github.com/MCFrank16/suura-backend#readme",
+  "devDependencies": {
+    "@babel/preset-env": "^7.8.3",
+    "babel-plugin-istanbul": "^6.0.0",
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "coveralls": "^3.0.9",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.20.0",
+    "husky": "^4.0.10",
+    "mocha": "^7.0.0",
+    "nyc": "^15.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint",
+      "pre-push": "npm test"
+    }
+  },
+  "dependencies": {
+    "@babel/cli": "^7.8.3",
+    "@babel/core": "^7.8.3",
+    "@babel/node": "^7.8.3",
+    "@babel/polyfill": "^7.8.3",
+    "@babel/register": "^7.8.3"
+  }
+}
