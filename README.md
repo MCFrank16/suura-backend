@@ -8,7 +8,6 @@ this is the backend of the project entitled as SUURA
 ## DATABASE SET UP
 **The project is using Mongodb**
 ### installation using brew
-
 - #### tap the mongodb
 ```
 brew tap mongodb/brew
@@ -19,24 +18,47 @@ brew install mongodb-community@4.2
 ```
 - #### run mongo server
 ```
-mongod --bind_ip_all --dbpath /usr/local/var/mongodb
+// For UNIX
+yarn start:db
+npm run start:db
 ```
+
+### using remote mongodb server
+- Create account on MongoDB Atlas and follow the set-ups
+- copy the database URL and paste it in `.env` accordingly
 
 ## APPLICATION SET UP
 - ### install dependencies
 ```
 npm install
+yarn
 ```
+- ### environment
+Edit your `.env` by following the example from `.env.example`
+
 - ### start the application
 ```
-npm start // production
-npm run dev // development
+// Production
+npm start
+yarn start
+// Development
+npm run start:dev
+yarn start:dev
 ```
 - ### testing
+It is recommended to use `Local MongoDB URL` speed sake during test
 ```
+yarn test
 npm test
 ```
 
+### Tools
+- GraphQL
+- MongoDB
+- Apollo server
+- Mongoose
+- Express
 
 ## License & copyright
-Copyright (c) MCFrank16, Software developer
+License MIT
+Copyright © 2020 Frank Mutabazi
