@@ -19,13 +19,16 @@ brew install mongodb-community@4.2
 - #### run mongo server
 ```
 // For UNIX
-yarn start:db
-npm run start:db
+
+- yarn start:db
+- npm run start:db
+
+// You will have to open another terminal to keep this connection alive
 ```
 
 ### using remote mongodb server
 - Create account on MongoDB Atlas and follow the set-ups
-- copy the database URL and paste it in `.env` accordingly
+- copy the database URL and paste it in `.env` by following `.env.sample`
 
 ## APPLICATION SET UP
 - ### install dependencies
@@ -39,18 +42,29 @@ Edit your `.env` by following the example from `.env.example`
 - ### start the application
 ```
 // Production
+
 npm start
 yarn start
+
 // Development
+
 npm run start:dev
 yarn start:dev
 ```
 - ### testing
-It is recommended to use `Local MongoDB URL` speed sake during test
+It is recommended to use `Local MongoDB URL` for speed sake during test
+
+**if your MongoDB is running locally**, first start your local db by following instructions mentioned in `Database Setup`*
+
+to run test simply do:
 ```
 yarn test
 npm test
 ```
+**NOTE that:** Test should use different database with `development` or `production`, follow `.env.sample`
+
+### GraphQL Playground
+open `localhost:4000/suura` in your browser. activated only during development
 
 ### Tools
 - GraphQL
