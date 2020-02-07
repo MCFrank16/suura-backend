@@ -7,7 +7,7 @@ dotenv.config();
 const { DB_URL_TEST, NODE_ENV, DB_URL } = process.env;
 export const connected = chalk.bold.cyan;
 export const error = chalk.bold.yellow;
-const disconnected = chalk.bold.red;
+export const disconnected = chalk.bold.red;
 export const termination = chalk.bold.magenta;
 
 mongo.set('useCreateIndex', true);

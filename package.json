@@ -19,9 +19,13 @@
   "scripts": {
     "start": "NODE_ENV=production babel-node ./src/index.js",
     "start:dev": "NODE_ENV=development nodemon --exec babel-node ./src/index",
-    "test": "NODE_ENV=test PORT=3000 nyc ./node_modules/.bin/mocha ./tests/* --exit",
+    "test": "npm run drop:test && npm run seed:test && NODE_ENV=test PORT=3000 nyc ./node_modules/.bin/mocha ./tests/* --exit",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
     "lint": "eslint ./src/**.js",
+    "drop:test": "NODE_ENV=test babel-node ./src/mongo/migrations/drop.js",
+    "drop": "NODE_ENV=development babel-node ./src/mongo/migrations/drop.js",
+    "seed": "NODE_ENV=development babel-node ./src/mongo/migrations/create.js",
+    "seed:test": "NODE_ENV=test babel-node ./src/mongo/migrations/create.js",
     "start:db": "mongod --bind_ip_all --dbpath /usr/local/var/mongodb",
     "build": "babel src/**.js --out-dir dist"
   },

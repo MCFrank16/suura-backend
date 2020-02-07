@@ -5,6 +5,6 @@ export default {
   validatePassword: value => /[a-zA-Z]+/.test(value) && !/\s+/.test(value) && /[0-9]+/.test(value) && /[-!$%^&*()_+|~=``{}\\:";'<>?,./@]+/.test(value),
   validateName: value => /^[A-Za-z_0-9 ]+$/.test(value),
   validatePhoneNo: value => /^\+250-\d{3}-\d{3}-\d{3}$/.test(value),
-  hashPassword: password => bcrypt.hashSync(password, bcrypt.genSaltSync()),
+  hashPassword: password => bcrypt.hashSync(password, 10),
   comparePassword: (password, encPassword) => bcrypt.compareSync(password, encPassword),
 };
