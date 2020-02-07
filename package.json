@@ -19,7 +19,7 @@
   "scripts": {
     "start": "NODE_ENV=production babel-node ./src/index.js",
     "start:dev": "NODE_ENV=development nodemon --exec babel-node ./src/index",
-    "test": "NODE_ENV=test nyc ./node_modules/.bin/mocha ./tests/* --exit",
+    "test": "NODE_ENV=test PORT=3000 nyc ./node_modules/.bin/mocha ./tests/* --exit",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
     "lint": "eslint ./src/**.js",
     "start:db": "mongod --bind_ip_all --dbpath /usr/local/var/mongodb",
@@ -61,7 +61,7 @@
     "@babel/node": "^7.8.3",
     "@babel/polyfill": "^7.8.3",
     "@babel/register": "^7.8.3",
-    "apollo-server": "^2.10.0",
+    "apollo-server-express": "^2.10.0",
     "bcrypt": "^3.0.7",
     "chalk": "^3.0.0",
     "dotenv": "^8.2.0",
