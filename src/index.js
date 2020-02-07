@@ -1,12 +1,22 @@
 /* eslint-disable no-console */
 import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
+import bodyParser from 'body-parser';
+import path from 'path';
+import file from 'express-fileupload';
 import connection, { connected, error, termination } from './mongo';
 import { typeDefs, resolvers } from './graphql';
 
 const { NODE_ENV, PORT } = process.env;
 const playground = NODE_ENV !== 'production';
 const app = express();
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(file({
+  useTempFiles: true,
+  tempFileDir: path.join(__dirname, '../temp'),
+}));
 
 const server = new ApolloServer({
   typeDefs,
