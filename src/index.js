@@ -1,23 +1,16 @@
 /* eslint-disable no-console */
-import express from 'express';
-import { ApolloServer } from 'apollo-server-express';
+import { ApolloServer } from 'apollo-server';
 import connection, { connected, error, termination } from './mongo';
-import schema from './graphql';
+import { typeDefs, resolvers } from './graphql';
 
 const playground = process.env.NODE_ENV !== 'production';
 
-const app = express();
-
 const server = new ApolloServer({
-  schema,
+  typeDefs,
+  resolvers,
   playground,
   introspection: true,
-  tracing: true,
-  path: '/suura',
-});
-
-server.applyMiddleware({
-  app,
+  tracing: false,
   path: '/suura',
   cors: true,
   onHealthCheck: () => new Promise((resolve, reject) => {
@@ -29,8 +22,7 @@ server.applyMiddleware({
   }),
 });
 
-const listen = app.listen(4000, () => console.log(connected('Server running at port 4000')));
-export default listen;
+export default server.listen(4000, () => console.log(connected('Server running at port 4000')));
 
 process.on('SIGINT', () => {
   connection.close(err => {
@@ -38,13 +30,6 @@ process.on('SIGINT', () => {
       console.log(error(err.message));
     } else {
       console.log(termination('database is disconnected due to application termination'));
-    }
-  });
-  listen.close(err => {
-    if (err) {
-      console.log(error(err.message));
-    } else {
-      console.log(termination('server is disconnected due to application termination'));
     }
   });
 });

@@ -1,6 +1,4 @@
-import { TC } from '../../mongo/models';
+import Resolver from '../resolver';
 
-export default {
-  userCreate: TC.UserTC.getResolver('createOne'),
-  userDelete: TC.UserTC.getResolver('removeMany'),
-};
+const session = async (root, args, context) => Resolver.session(root, args, context);
+export default { session };

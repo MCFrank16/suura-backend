@@ -1,5 +1,3 @@
-import { User, UserTC } from './user';
-
-
-export default { User };
-export const TC = { UserTC };
+/* eslint-disable import/prefer-default-export */
+export { default as User } from './user';
+export { default as Session } from './session';
