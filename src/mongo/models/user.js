@@ -1,6 +1,6 @@
 import mongo, { Schema } from 'mongoose';
 import timestamps from 'mongoose-timestamp';
-import utils from '../../utils';
+import Util from '../../utils';
 
 const UserSchema = new Schema({
   name: {
@@ -9,7 +9,7 @@ const UserSchema = new Schema({
     required: [true, 'provide your full name'],
     minlength: 1,
     validate: {
-      validator: utils.validateName,
+      validator: Util.validateName,
       message: 'Invalid name, only alpha characters'
     }
   },
@@ -18,7 +18,7 @@ const UserSchema = new Schema({
     trim: true,
     unique: [true, 'try another username'],
     validate: {
-      validator: utils.validateUserName,
+      validator: Util.validateUserName,
       message: 'username must not contain spaces'
     },
     minlength: 2
@@ -27,7 +27,7 @@ const UserSchema = new Schema({
     type: String,
     trim: true,
     unique: [true, 'this email is already registered!'],
-    required: [true, 'username is required']
+    required: false
   },
   phonenumber: {
     type: String,
@@ -35,7 +35,7 @@ const UserSchema = new Schema({
     minlength: 1,
     required: false,
     validate: {
-      validator: utils.validatePhoneNo,
+      validator: Util.validatePhoneNo,
       message: 'use valid phone line'
     }
   },
@@ -55,7 +55,7 @@ const UserSchema = new Schema({
     trim: true,
     default: 'provider',
     enum: {
-      values: ['admin', 'provider', 'superadmin', 'client'],
+      values: ['admin', 'provider', 'superadmin'],
       message: 'invalid user\'s role',
     }
   },
@@ -75,6 +75,7 @@ const UserSchema = new Schema({
     ref: 'User'
   }
 }, { collection: 'users' });
+
 
 UserSchema.plugin(timestamps);
 UserSchema.index({ createdAt: 1, updatedAt: 1 });

@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import connection, { connected, error, disconnected, termination } from '..';
 import { User } from '../models';
 import Util from '../../utils';

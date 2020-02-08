@@ -1,10 +1,42 @@
 import bcrypt from 'bcrypt';
 
-export default {
-  validateUserName: value => /^[A-Za-z_0-9]+$/.test(value),
-  validatePassword: value => /[a-zA-Z]+/.test(value) && !/\s+/.test(value) && /[0-9]+/.test(value) && /[-!$%^&*()_+|~=``{}\\:";'<>?,./@]+/.test(value),
-  validateName: value => /^[A-Za-z_0-9 ]+$/.test(value),
-  validatePhoneNo: value => /^\+250-\d{3}-\d{3}-\d{3}$/.test(value),
-  hashPassword: password => bcrypt.hashSync(password, 10),
-  comparePassword: (password, encPassword) => bcrypt.compareSync(password, encPassword),
-};
+/**
+ * @class Util
+ * @description utilities(validation) class
+ */
+export default class Util {
+  static validateUserName(username) {
+    return /^[A-Za-z_0-9]+$/.test(username);
+  }
+
+  static validatePassword(password) {
+    return /[a-zA-Z]+/.test(password) && !/\s+/.test(password) && /[0-9]+/.test(password) && /[-!$%^&*()_+|~=``{}\\:";'<>?,./@]+/.test(password);
+  }
+
+  static validateName(name) {
+    return /^[A-Za-z_0-9 ]+$/.test(name);
+  }
+
+  static validatePhoneNo(phone) {
+    return /^07(3|2|8)\d{7}$/.test(phone);
+  }
+
+  static comparePassword(password, encrypted) {
+    return bcrypt.compareSync(password, encrypted);
+  }
+
+  static hashPassword(password) {
+    return bcrypt.hashSync(password, 10);
+  }
+
+  static parseObject(object) {
+    if (object) {
+      object.password && (object.password = undefined);
+    }
+    return object;
+  }
+
+  static getToken(req) {
+    return (req.headers['x-access-token'] || req.headers.authorization || req.headers.Authorization);
+  }
+}

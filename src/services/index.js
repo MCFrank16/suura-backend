@@ -1,22 +1,47 @@
-import { Session, User } from '../mongo/models';
+import { SchemaError } from 'apollo-server-express';
+import { Session, User, IP } from '../mongo/models';
 import Util from '../utils';
 
-export default {
-  deleteSession: async token => Session.deleteOne({ token }),
-  createSession: async ({ token, user }) => Session.create({ token, user }),
-  signin: async (email, password) => {
+/**
+ * @class Service
+ * @description every direct operations with the database are defined in this class
+ */
+export default class Service {
+  static async deleteSession(token, user = '') {
+    const $or = [{ token, user }];
+    return (await Session.deleteMany({ $or })).deletedCount;
+  }
+
+  static async createSession({ token, user }) {
     try {
-      const $or = [{ email }, { username: email }];
-      const user = await (await User.findOne({ $or }).exec()).toJSON();
-      if (Util.comparePassword(password, user.password)) {
-        delete user.password;
-        return user;
-      }
-      throw new Error();
+      return Session.create({ token, user });
     } catch (err) {
-      return null;
+      throw new SchemaError(err.message);
     }
-  },
-  user: async id => (await User.findById(id).exec()).toJSON(),
-  users: async (limit = -1, skip = 0) => User.find().limit(limit).skip(skip)
-};
+  }
+
+  static async getUserByProfile(username) {
+    const $or = [{ username }, { email: username }];
+    return User.findOne({ $or });
+  }
+
+  static async getUserById(id) {
+    return Util.parseObject(await User.findById(id));
+  }
+
+  static async postIp(reqIP) {
+    try {
+      await IP.create({ ip: reqIP });
+    } catch (err) {
+      throw new SchemaError(err.message);
+    }
+  }
+
+  static async getToken(token) {
+    return Session.findOne({ token });
+  }
+
+  static async getUsers(filter) {
+    return User.find(filter);
+  }
+}

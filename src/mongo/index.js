@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import mongo from 'mongoose';
 import dotenv from 'dotenv';
 import chalk from 'chalk';

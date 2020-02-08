@@ -12,7 +12,7 @@ const SessionSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User'
   }
-});
+}, { collection: 'sessions' });
 
 SessionSchema.plugin(timestamps);
 SessionSchema.index({ createdAt: 1, updatedAt: 1 });

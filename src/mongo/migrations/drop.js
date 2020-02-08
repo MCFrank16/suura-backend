@@ -1,6 +1,5 @@
-/* eslint-disable no-console */
 import connection, { connected, error, disconnected, termination } from '..';
-import { User, Session } from '../models';
+import { User, Session, IP } from '../models';
 
 connection.on('connected', async () => {
   console.log(connected(`truncating tables at database ${connection.db.databaseName}!`));
@@ -16,6 +15,13 @@ connection.on('connected', async () => {
       console.log(error('Table Session not truncated', err.message));
     } else {
       console.log(termination('Table Session truncated'));
+    }
+  });
+  await IP.remove({}, err => {
+    if (err) {
+      console.log(error('Table IP not truncated', err.message));
+    } else {
+      console.log(termination('Table IP truncated'));
     }
   });
   connection.close(err => {
