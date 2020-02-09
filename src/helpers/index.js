@@ -1,18 +1,17 @@
 import jwt from 'jsonwebtoken';
-import Service from '../services';
+import cloudinary from 'cloudinary';
+import { getToken, createSession } from '../services';
 
 /**
  * @class Helper
  * @description All helpers(usually finalizers function) between resolvers
  */
 export default class Helper {
-  static async verifyUser(session) {
+  static async verifyUser(session, req) {
     try {
-      const { token } = await Service.getToken(session);
-      if (!token) {
-        throw new Error();
-      }
-      return jwt.verify(token, process.env.PRIVATE_KEY);
+      const { token } = await getToken(session);
+      req.token = token;
+      return jwt.verify(req.token, process.env.PRIVATE_KEY);
     } catch (err) {
       return null;
     }
@@ -20,6 +19,12 @@ export default class Helper {
 
   static async signUser(user) {
     const token = jwt.sign(user.toJSON(), process.env.PRIVATE_KEY);
-    return Service.createSession({ token, user: user.id });
+    return createSession({ token, user: user._id });
+  }
+
+  static async uploadFile(file) {
+    const { NODE_ENV, CLOUDINARY_URL } = process.env;
+    const cloud = cloudinary.config(CLOUDINARY_URL);
+    return cloud.v2.uploader.upload(file, { folder: NODE_ENV, use_filename: true });
   }
 }

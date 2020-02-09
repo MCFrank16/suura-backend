@@ -26,7 +26,11 @@ const UserSchema = new Schema({
     type: String,
     trim: true,
     unique: [true, 'this email is already registered!'],
-    required: false
+    required: false,
+    validate: {
+      validator: Util.validateEmail,
+      message: 'Invalid email'
+    }
   },
   phonenumber: {
     type: String,
@@ -34,7 +38,7 @@ const UserSchema = new Schema({
     required: false,
     validate: {
       validator: Util.validatePhoneNo,
-      message: 'use valid phone line, ex.. 078..'
+      message: 'use valid phonenumber, ex.. 078..'
     }
   },
   password: {

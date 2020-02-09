@@ -21,6 +21,10 @@ export default class Util {
     return /^07(3|2|8)\d{7}$/.test(phone);
   }
 
+  static validateEmail(email) {
+    return /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email);
+  }
+
   static comparePassword(password, encrypted) {
     return bcrypt.compareSync(password, encrypted);
   }
