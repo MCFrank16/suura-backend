@@ -9,7 +9,6 @@ export default class Helper {
   static async verifyUser(session) {
     try {
       const { token } = await Service.getToken(session);
-      console.log('token verfy', token);
       if (!token) {
         throw new Error();
       }

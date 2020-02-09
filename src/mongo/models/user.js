@@ -10,7 +10,7 @@ const UserSchema = new Schema({
     minlength: 1,
     validate: {
       validator: Util.validateName,
-      message: 'Invalid name, only alpha characters'
+      message: 'Invalid name, only alphanumeric characters'
     }
   },
   username: {
@@ -20,8 +20,7 @@ const UserSchema = new Schema({
     validate: {
       validator: Util.validateUserName,
       message: 'username must not contain spaces'
-    },
-    minlength: 2
+    }
   },
   email: {
     type: String,
@@ -32,18 +31,21 @@ const UserSchema = new Schema({
   phonenumber: {
     type: String,
     trim: true,
-    minlength: 1,
     required: false,
     validate: {
       validator: Util.validatePhoneNo,
-      message: 'use valid phone line'
+      message: 'use valid phone line, ex.. 078..'
     }
   },
   password: {
     type: String,
     trim: true,
     required: [true, 'password is required'],
-    minlength: 8
+  },
+  bio: {
+    type: String,
+    trim: true,
+    required: false
   },
   address: {
     type: String,

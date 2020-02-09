@@ -11,6 +11,7 @@ type Session {
 type User {
   id: String
   username: String
+  name: String
   role: String
   createdAt: String
   updatedAt: String
@@ -21,11 +22,13 @@ type User {
   banner: String
   createdBy: String
   phonenumber: String
+  bio: String
 }
 
 type Mutation {
   session(username: String!, password: String!): Session
-  logout(token: String, user: String): Int
+  logout(user: String): Int
+  user(username: String!, password: String!, email: String, name: String!): User
 }
 
 type Query {

@@ -8,7 +8,7 @@ import Util from '../utils';
  */
 export default class Service {
   static async deleteSession(token, user = '') {
-    const $or = [{ token, user }];
+    const $or = (user) ? [{ token, user }] : [{ token }];
     return (await Session.deleteMany({ $or })).deletedCount;
   }
 
@@ -43,5 +43,9 @@ export default class Service {
 
   static async getUsers(filter) {
     return User.find(filter);
+  }
+
+  static async createUser(user) {
+    return User.create(user);
   }
 }
