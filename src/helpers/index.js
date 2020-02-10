@@ -24,7 +24,11 @@ export default class Helper {
 
   static async uploadFile(file) {
     const { NODE_ENV, CLOUDINARY_URL } = process.env;
-    const cloud = cloudinary.config(CLOUDINARY_URL);
-    return cloud.v2.uploader.upload(file, { folder: NODE_ENV, use_filename: true });
+    cloudinary.config(CLOUDINARY_URL);
+    return cloudinary.v2.uploader.upload(file, {
+      tags: NODE_ENV,
+      folder: NODE_ENV,
+      use_filename: true,
+    });
   }
 }

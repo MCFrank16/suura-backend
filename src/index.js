@@ -1,6 +1,8 @@
+import path from 'path';
 import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import bodyParser from 'body-parser';
+import upload from 'express-fileupload';
 import connection, { connected, error, termination } from './mongo';
 import { typeDefs, resolvers } from './graphql';
 import Middleware from './middlewares';
@@ -13,6 +15,10 @@ app.set('trust proxy', true);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(Middleware.authorize);
+app.use('/upload', upload({
+  useTempFiles: true,
+  tempFileDir: path.join(__dirname, '../temp'),
+}), Middleware.upload);
 
 const server = new ApolloServer({
   typeDefs,

@@ -52,11 +52,10 @@ npm run start:dev
 yarn start:dev
 ```
 - ### testing
-It is recommended to use `Local MongoDB URL` for speed sake during test
+It is recommended to use `Local MongoDB` for speed sake during test,
+**first start your local mongodb**,  `yarn start:db` 
 
-**if your MongoDB is running locally**, first start your local db by following instructions mentioned in `Database Setup`*
-
-to run test simply do:
+and then, to run test simply do:
 ```
 yarn test
 npm test
@@ -64,12 +63,13 @@ npm test
 **NOTE that:** Test should use different database with `development` or `production`, follow `.env.sample`
 
 ### GraphQL Playground
-open `localhost:4000/suura` in your browser. activated only during development
+- open `localhost:4000/suura` in your browser. activated only during development.
+- **NOTE that:** `Uploading files` uses `Normal REST API` specifications, you call `POST:/upload`
 
 ### Tools
 - GraphQL
 - MongoDB
-- Apollo server
+- Apollo server Express
 - Mongoose
 - Express
 
